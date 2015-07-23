@@ -14,6 +14,10 @@
 		5612FCA51B5F95E40068A84C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5612FCA31B5F95E40068A84C /* LaunchScreen.storyboard */; };
 		5612FCB01B5F95E50068A84C /* SwiftByPhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5612FCAF1B5F95E50068A84C /* SwiftByPhotoTests.swift */; };
 		5612FCBB1B5F95E50068A84C /* SwiftByPhotoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5612FCBA1B5F95E50068A84C /* SwiftByPhotoUITests.swift */; };
+		5612FCCA1B5F96090068A84C /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5612FCC91B5F96090068A84C /* GroupViewController.swift */; };
+		5612FCCC1B5F96190068A84C /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5612FCCB1B5F96190068A84C /* DisplayViewController.swift */; };
+		5612FCCE1B5F962A0068A84C /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5612FCCD1B5F962A0068A84C /* GroupTableViewCell.swift */; };
+		5612FCD21B5F96900068A84C /* DisplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5612FCD11B5F96900068A84C /* DisplayCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		5612FCB61B5F95E50068A84C /* SwiftByPhotoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftByPhotoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5612FCBA1B5F95E50068A84C /* SwiftByPhotoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftByPhotoUITests.swift; sourceTree = "<group>"; };
 		5612FCBC1B5F95E50068A84C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5612FCC91B5F96090068A84C /* GroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		5612FCCB1B5F96190068A84C /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
+		5612FCCD1B5F962A0068A84C /* GroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
+		5612FCD11B5F96900068A84C /* DisplayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +85,7 @@
 		5612FC8E1B5F95E40068A84C = {
 			isa = PBXGroup;
 			children = (
+				5612FCC81B5F95ED0068A84C /* album */,
 				5612FC991B5F95E40068A84C /* SwiftByPhoto */,
 				5612FCAE1B5F95E50068A84C /* SwiftByPhotoTests */,
 				5612FCB91B5F95E50068A84C /* SwiftByPhotoUITests */,
@@ -123,6 +132,17 @@
 				5612FCBC1B5F95E50068A84C /* Info.plist */,
 			);
 			path = SwiftByPhotoUITests;
+			sourceTree = "<group>";
+		};
+		5612FCC81B5F95ED0068A84C /* album */ = {
+			isa = PBXGroup;
+			children = (
+				5612FCC91B5F96090068A84C /* GroupViewController.swift */,
+				5612FCCB1B5F96190068A84C /* DisplayViewController.swift */,
+				5612FCCD1B5F962A0068A84C /* GroupTableViewCell.swift */,
+				5612FCD11B5F96900068A84C /* DisplayCollectionViewCell.swift */,
+			);
+			name = album;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,8 +275,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5612FCCA1B5F96090068A84C /* GroupViewController.swift in Sources */,
 				5612FC9D1B5F95E40068A84C /* ViewController.swift in Sources */,
 				5612FC9B1B5F95E40068A84C /* AppDelegate.swift in Sources */,
+				5612FCCC1B5F96190068A84C /* DisplayViewController.swift in Sources */,
+				5612FCCE1B5F962A0068A84C /* GroupTableViewCell.swift in Sources */,
+				5612FCD21B5F96900068A84C /* DisplayCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
