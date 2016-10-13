@@ -9,12 +9,12 @@
 import UIKit
 import Photos
 
-class ViewController: UIViewController, GroupViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var imageManager: PHCachingImageManager = PHCachingImageManager()
     var collectionView: UICollectionView!
-    private let width = UIScreen.mainScreen().bounds.width
-    private let height = UIScreen.mainScreen().bounds.height
+    private let width = UIScreen.main.bounds.width
+    private let height = UIScreen.main.bounds.height
     
     var assetsA = [PHAsset]()
     
@@ -30,26 +30,26 @@ class ViewController: UIViewController, GroupViewControllerDelegate, UICollectio
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
-        layout.itemSize = CGSizeMake((width-40)/4, (width-40)/4)
+        layout.itemSize = CGSize(width: (width-40)/4, height: (width-40)/4)
         
-        collectionView = UICollectionView(frame: CGRectMake(10, 74, width-20, height-200), collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 10, y: 74, width: width-20, height: height-200), collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.whiteColor()
-        collectionView.registerClass(DisplayCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "cell")
+        collectionView.backgroundColor = UIColor.white
+        collectionView.register(YWDisplayCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "cell")
         view.addSubview(collectionView)
     }
     
     
     //collectionView代理
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assetsA.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! DisplayCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! YWDisplayCollectionViewCell
         let asset = assetsA[indexPath.row] as PHAsset
-        imageManager.requestImageForAsset(asset, targetSize: CGSizeMake((width-40)/4, (width-40)/4), contentMode: PHImageContentMode.AspectFill, options: nil) { (result, info) -> Void in
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: (width-40)/4, height: (width-40)/4), contentMode: PHImageContentMode.aspectFill, options: nil) { (result, info) -> Void in
             cell.image = result
         }
         
@@ -58,35 +58,35 @@ class ViewController: UIViewController, GroupViewControllerDelegate, UICollectio
     
 
     @IBAction func actionTakePhoto(sender: UIButton) {
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) == true {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) == true {
             let pickVC = UIImagePickerController()
             pickVC.delegate = self
             //是否可编辑 
             pickVC.allowsEditing = false
             //摄像头   
-            pickVC.sourceType = UIImagePickerControllerSourceType.Camera
-            self.presentViewController(pickVC, animated: true, completion: nil)
+            pickVC.sourceType = UIImagePickerControllerSourceType.camera
+            self.present(pickVC, animated: true, completion: nil)
         }
     }
 
     @IBAction func actionAlbum(sender: UIButton) {
-        let sheetVC = UIAlertController(title: "选择照片", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        sheetVC.addAction(UIAlertAction(title: "单选", style: UIAlertActionStyle.Destructive, handler: { (sheet) -> Void in
-            let groupVC = GroupViewController()
+        let sheetVC = UIAlertController(title: "选择照片", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        sheetVC.addAction(UIAlertAction(title: "单选", style: UIAlertActionStyle.destructive, handler: { (sheet) -> Void in
+            let groupVC = YWGroupViewController()
             groupVC.delegate = self
-            groupVC.type = SeletedPictureType.onePicture
-            self.navigationController?.showViewController(groupVC, sender: nil)
+            groupVC.type = .onePicture
+            self.navigationController?.show(groupVC, sender: nil)
         }))
   
-        sheetVC.addAction(UIAlertAction(title: "多选", style: UIAlertActionStyle.Destructive, handler: { (sheet) -> Void in
-            let groupVC = GroupViewController()
+        sheetVC.addAction(UIAlertAction(title: "多选", style: UIAlertActionStyle.destructive, handler: { (sheet) -> Void in
+            let groupVC = YWGroupViewController()
             groupVC.delegate = self
-            groupVC.type = SeletedPictureType.morePicture
+            groupVC.type = .morePicture
             groupVC.selectedAssets = self.assetsA
-            self.navigationController?.showViewController(groupVC, sender: nil)
+            self.navigationController?.show(groupVC, sender: nil)
         }))
-        sheetVC.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(sheetVC, animated: true, completion: nil)
+        sheetVC.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(sheetVC, animated: true, completion: nil)
     }
     
     //UIImagePickerController代理
@@ -94,10 +94,13 @@ class ViewController: UIViewController, GroupViewControllerDelegate, UICollectio
         
     }
     
+}
+
+extension ViewController: YWGroupViewControllerDelegate {
     //groupViewController代理
     func groupViewControllerDidSeletedAssets(assets: [PHAsset]) {
         assetsA.removeAll()
-        assetsA.extend(assets)
+        assetsA.append(contentsOf: assets)
         collectionView.reloadData()
     }
     
@@ -106,12 +109,6 @@ class ViewController: UIViewController, GroupViewControllerDelegate, UICollectio
         assetsA.append(asset)
         collectionView.reloadData()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
+
 

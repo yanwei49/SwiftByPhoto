@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GroupTableViewCell: UITableViewCell {
+class YWGroupTableViewCell: UITableViewCell {
 
     private var icon: UIImageView!
     private var title: UILabel!
@@ -28,12 +28,11 @@ class GroupTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        icon = UIImageView(frame: CGRectMake(10, 10, 60, 60))
-        icon.backgroundColor = UIColor.whiteColor()
+        icon = UIImageView(frame: CGRect(x: 10, y: 10, width: 60, height: 60))
+        icon.backgroundColor = UIColor.white
         self.addSubview(icon)
         
-        title = UILabel(frame: CGRectMake(80, 20, UIScreen.mainScreen().bounds.width-100, 40))
-//        title.font = UIFont.systemFontOfSize(14)
+        title = UILabel(frame: CGRect(x: 80, y: 20, width: UIScreen.main.bounds.width-100, height: 40))
         self.addSubview(title)
     }
     
